@@ -780,6 +780,34 @@ function loadState() {
     }
 }
 
+function importData(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const data = JSON.parse(e.target.result);
+        
+        // Asegúrate de que los datos estén en el formato esperado
+        if (data.ownedCards) {
+            state.ownedCards = data.ownedCards;
+        }
+
+        if (data.favoriteSets) {
+            state.favoriteSets = data.favoriteSets;
+        }
+
+        // Guardar en localStorage también para persistencia
+        localStorage.setItem('ownedCards', JSON.stringify(state.ownedCards));
+        localStorage.setItem('favoriteSets', JSON.stringify(state.favoriteSets));
+        
+        // Redibujar la UI si es necesario
+        loadCardsPage();
+        loadAlbumsPage();
+    };
+    
+    reader.readAsText(file);
+}
 
 
 
