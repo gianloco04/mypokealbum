@@ -737,5 +737,54 @@ async function init() {
     }
 }
 
+function exportData() {
+    const data = {
+        ownedCards: state.ownedCards,
+        favoriteSets: state.favoriteSets
+    };
+
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'data.json';
+    link.click();
+    
+    // Liberar el URL
+    URL.revokeObjectURL(url);
+}
+
+
+// Cargar estado desde localStorage al iniciar
+function loadState() {
+    const storedAccessGranted = localStorage.getItem('accessGranted');
+    if (storedAccessGranted) {
+        state.accessGranted = storedAccessGranted === 'true';
+    } else {
+        state.accessGranted = false;
+    }
+
+    const storedOwnedCards = localStorage.getItem('ownedCards');
+    if (storedOwnedCards) {
+        state.ownedCards = JSON.parse(storedOwnedCards);
+    } else {
+        state.ownedCards = {}; // Si no hay datos, inicializar vacío
+    }
+
+    const storedFavoriteSets = localStorage.getItem('favoriteSets');
+    if (storedFavoriteSets) {
+        state.favoriteSets = JSON.parse(storedFavoriteSets);
+    } else {
+        state.favoriteSets = []; // Si no hay datos, inicializar vacío
+    }
+}
+
+
+
+
 // Start the app
 init();
+
+// Llamar esta función cuando la página se carga
+loadState();
