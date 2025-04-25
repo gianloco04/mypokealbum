@@ -4,7 +4,7 @@
     --background-color: #f8f9fa;
     --card-bg: #ffffff;
     --text-color: #333333;
-    --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     --transition: all 0.3s ease;
     --caca: #000;
 }
@@ -17,19 +17,18 @@
 }
 
 body {
-    background-color: var(--background-color);
+    background-color: var(--primary-color);
     color: var(--text-color);
     min-height: 100vh;
 }
 
 header {
-    background-color: var(--primary-color);
+    background: linear-gradient(center, var(--primary-color) 0%, var(--caca) 100%);
     color: white;
     padding: 1rem;
-    box-shadow: var(--shadow);
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: -1;
 }
 
 header h1 {
@@ -55,8 +54,47 @@ nav a:hover, nav a.active {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
+.circle-container {
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;  /* Diámetro del círculo negro */
+    height: 100px;
+    background-color: #000;  /* Círculo negro */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;  /* Alinea el círculo blanco al fondo */
+    justify-content: center;  /* Centra el círculo blanco dentro del negro */
+}
+
+.inner-circle {
+    width: 70px;  /* Diámetro del círculo blanco */
+    height: 70px;
+    background-color: #fff;  /* Círculo blanco */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inner-inner-circle {
+    width: 40px;
+    height: 40px;
+    box-shadow: var(--shadow);
+    border-radius: 50%;
+}
+
 main {
+    background: var(--background-color);
+    border-radius: 100px 100px 0 0;
+    border-top: #000 20px solid;
+    border-left: #000 10px solid;
+
     padding: 2rem;
+}
+
+#main-content {
     max-width: 1200px;
     margin: 0 auto;
 }
